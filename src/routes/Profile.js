@@ -4,10 +4,6 @@ import { authService } from '../fbase';
 
 export default function Profile() {
   const navigate = useNavigate();
-  // const onLogOutClick = () => {
-  //   authService.signOut();
-    // navigate("/");
-  // }
   const onLogOutClick = () => {
     authService.signOut()
     navigate("/");
