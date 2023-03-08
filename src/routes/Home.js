@@ -1,6 +1,6 @@
 import { orderBy } from 'firebase/firestore';
 import React, {useEffect, useState} from 'react'
-import { dbService, fireStore, fAddDoc, fCollection, fGetDocs, fOnSnapshot, fQuery } from '../fbase';
+import { dbService, fireStore, fAddDoc, fCollection, fGetDocs, fOnSnapshot, fQuery, fWhere, fOrderBy } from '../fbase';
 
 export default function Home({userObj}) {
   console.log(userObj)
@@ -9,17 +9,21 @@ export default function Home({userObj}) {
   const [tweets, setTweets] = useState([]);
 
   const getTweets = async () => {
-    const querySnapshot = await fGetDocs(fCollection(dbService, "tweets"));
-    // console.log(querySnapshot)
-      let newTweets = querySnapshot.docs.map((doc) => {
+    const q = fQuery(fCollection(dbService, "tweets"), fWhere("creatorId", "==", userObj.uid), fOrderBy("createdAt", "desc"));
+    // realtime updates from firestore
+    await fOnSnapshot(q, (snapshot) => {
+        const texts = snapshot.docs.map((doc) => {
+          console.log(doc)
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-        return {
-          id: doc.id, 
-          data: doc.data()
-        }
+          console.log(doc.id, " => ", doc.data());
+          return {
+            id: doc.id, 
+            data: doc.data()
+          }
+        })
+        setTweets(texts)
       });
-      setTweets(newTweets)
+      
   }
   useEffect(() => {
     getTweets();
@@ -30,8 +34,7 @@ export default function Home({userObj}) {
     setTweet(e.target.value);
   }
   const onSubmit = async (e) => {
-    e.preventDefault();
-    // if(e.target.value.length < 1) return 
+    e.preventDefault(); 
     const docRef = await fAddDoc(fCollection(dbService, "tweets"), {
       creatorId: userObj.uid,
       text: tweet,
@@ -49,7 +52,7 @@ export default function Home({userObj}) {
       </form>
       <div>
         {tweets.map(tweet => {
-          return <li key={tweet.id}>{tweet.data.tweet}</li>
+          return <li key={tweet.id}>{tweet.data.text}</li>
         })}
       </div>
       {/* {
