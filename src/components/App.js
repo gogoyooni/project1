@@ -3,12 +3,12 @@ import AppRouter from './Router'
 // Router.js에 루트 라우터 설정
 import { authService, createUser } from '../fbase'
 import { onAuthStateChanged } from 'firebase/auth'
-import Navigation from './Navigation'
 
 function App() {
   
   const [init, setInit] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userObj, setUserObj] = useState(null);
 
   // console.log(authService.currentUser)
   
@@ -17,6 +17,7 @@ function App() {
       try {
         if (user) {
           setIsLoggedIn(true);
+          setUserObj(user)
         } else {
           setIsLoggedIn(false);
         }
@@ -31,7 +32,7 @@ function App() {
     <>
       {/* {isLoggedIn && <Navigation />} */}
       {
-        init ? <AppRouter isLoggedIn={isLoggedIn} /> : 'Initializing...'
+        init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj}/> : 'Initializing...'
       }  
     </> 
   );

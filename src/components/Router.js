@@ -9,44 +9,7 @@ import Auth from '../routes/Auth';
 import Profile from '../routes/Profile';
 import Navigation from './Navigation';
 
-
-// const useRouter = ({isLoggedIn}) => {
-//     // const router = createBrowserRouter([
-//     //     {
-//     //       path: "/",
-//     //       element: isLoggedIn ? <Home /> : <Auth />,
-//     //     },
-//     //     {
-//     //       path: "/edit-profile",
-//     //       element: isLoggedIn && <EditProfile />,
-//     //     },
-//     //     {
-//     //       path: "/profile",
-//     //       element: isLoggedIn && <Profile />,
-//     //     },
-//     // ]);
-
-//     const router = createBrowserRouter(
-//         createRoutesFromElements(
-//             // <Route path='/'  element={<Root />} >
-//             <>
-//                 <Route path='/' element={isLoggedIn ? <Home /> : <Auth />}/>
-//                 <Route path="/profile" element={isLoggedIn ? <Profile /> : <Auth />} />
-//             </>
-//             // </Route>
-//         )
-//     )
-//     return router
-// }
-
-
-// export default function Router({isLoggedIn}) {
-//     const router = useRouter({isLoggedIn})    
-//   return (
-//     <RouterProvider router={router}/> 
-//  )
-// }
-export default function AppRouter ({isLoggedIn}){
+export default function AppRouter ({isLoggedIn, userObj}){
   return (
     // <Router>
         <>
@@ -54,7 +17,7 @@ export default function AppRouter ({isLoggedIn}){
         <Routes>
             {isLoggedIn ? (
                 <>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home userObj={userObj}/>} />
                     <Route path="/profile" element={<Profile />} />
                 </>
             ) :
@@ -64,7 +27,6 @@ export default function AppRouter ({isLoggedIn}){
         }
         </Routes>
         </>
-    // </Router>
  )
 };
 

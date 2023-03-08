@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import {getFirestore, collection, doc, addDoc, getDocs, getDoc, onSnapshot, query} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -17,6 +18,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// Initialize Firestore
+const db = getFirestore(app);
+
 export const authService = getAuth(app);
 export const createUser = createUserWithEmailAndPassword;
 export const signIn = signInWithEmailAndPassword;
+export const fireStore = getFirestore();
+export const dbService = db;
+export const fAddDoc = addDoc;
+export const fCollection = collection;
+export const fDoc = doc;
+export const fGetDocs = getDocs;
+export const fOnSnapshot = onSnapshot;
+export const fQuery = query;
