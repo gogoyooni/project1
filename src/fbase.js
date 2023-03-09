@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import {getFirestore, collection, doc, addDoc, getDocs, getDoc, onSnapshot, query,where, orderBy} from 'firebase/firestore';
+import {getFirestore, collection, doc, addDoc, getDocs, getDoc, onSnapshot, query,where, orderBy, deleteDoc, updateDoc} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -34,3 +34,5 @@ export const fOnSnapshot = onSnapshot;
 export const fQuery = query;
 export const fWhere = where;
 export const fOrderBy = orderBy
+export const fDeleteDoc = deleteDoc;
+export const fEditDoc = updateDoc;

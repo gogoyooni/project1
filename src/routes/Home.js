@@ -1,5 +1,6 @@
 import { orderBy } from 'firebase/firestore';
 import React, {useEffect, useState} from 'react'
+import Tweet from '../components/Tweet';
 import { dbService, fireStore, fAddDoc, fCollection, fGetDocs, fOnSnapshot, fQuery, fWhere, fOrderBy } from '../fbase';
 
 export default function Home({userObj}) {
@@ -9,7 +10,8 @@ export default function Home({userObj}) {
   const [tweets, setTweets] = useState([]);
 
   const getTweets = async () => {
-    const q = fQuery(fCollection(dbService, "tweets"), fWhere("creatorId", "==", userObj.uid), fOrderBy("createdAt", "desc"));
+    // const q = fQuery(fCollection(dbService, "tweets"), fWhere("creatorId", "==", userObj.uid), fOrderBy("createdAt", "desc"));
+    const q = fQuery(fCollection(dbService, "tweets"), fOrderBy("createdAt", "desc"));
     // realtime updates from firestore
     await fOnSnapshot(q, (snapshot) => {
         const texts = snapshot.docs.map((doc) => {
@@ -25,6 +27,7 @@ export default function Home({userObj}) {
       });
       
   }
+
   useEffect(() => {
     getTweets();
   
@@ -52,7 +55,7 @@ export default function Home({userObj}) {
       </form>
       <div>
         {tweets.map(tweet => {
-          return <li key={tweet.id}>{tweet.data.text}</li>
+          return <Tweet key={tweet.id} tweetObj={tweet} isOwner={tweet.data.creatorId == userObj.uid}/>
         })}
       </div>
       {/* {
