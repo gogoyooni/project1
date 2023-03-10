@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { fDoc, fDeleteDoc,dbService,fWhere, fEditDoc } from '../fbase'
+import { fDoc, fDeleteDoc,dbService,fWhere, fEditDoc, fDeletObject, fStorage, fRef,  } from '../fbase'
 
 export default function Tweet({tweetObj, isOwner}) { 
     const [editing, setEditing] = useState(false);
@@ -16,6 +16,11 @@ export default function Tweet({tweetObj, isOwner}) {
             try {
                 const deleteResult = await fDeleteDoc(fDoc(dbService, `tweets`, `${tweetObj.id}`));
                 console.log(deleteResult);
+                //트윗이랑 같이 첨부된 사진의 URL 레퍼런스를 가져오기
+                const imgURLRef = await fRef(fStorage, tweetObj.data.imgURL)
+                console.log(imgURLRef)
+                // 트윗에 첨부된 이미지 URL 삭제하기
+                await fDeletObject(imgURLRef)
             } catch(error){
                 console.log(error)
             }

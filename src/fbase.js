@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {getFirestore, collection, doc, addDoc, getDocs, getDoc, onSnapshot, query,where, orderBy, deleteDoc, updateDoc} from 'firebase/firestore';
-import { getStorage, ref, uploadString,getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { getStorage, ref, uploadString,getDownloadURL, deleteObject } from 'firebase/storage'
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -44,3 +44,4 @@ export const fStorage = firebaseStorage;
 export const fRef = ref;
 export const fUploadString = uploadString;
 export const fGetDownloadURL = getDownloadURL;
+export const fDeletObject = deleteObject;
