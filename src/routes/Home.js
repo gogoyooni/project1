@@ -42,7 +42,7 @@ export default function Home({userObj}) {
     e.preventDefault(); 
     let downloadedImgURL = "";
     // 유저가 사진을 업로드 안했을 경우
-    if( attachment != ""){
+    if( attachment !== ""){
       
       // uid 기준으로 버킷 폴더를 구분 / uuid를 활용해서 사진도 구분
       const storageRef = fRef(fStorage, `${userObj.uid}/${uuidv4()}`);

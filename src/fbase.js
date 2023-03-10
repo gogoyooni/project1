@@ -3,8 +3,8 @@ import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import {getFirestore, collection, doc, addDoc, getDocs, getDoc, onSnapshot, query,where, orderBy, deleteDoc, updateDoc} from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, updateCurrentUser, updateProfile, } from "firebase/auth";
+import {getFirestore, collection, doc, addDoc, getDocs, getDoc, onSnapshot, query,where, orderBy, deleteDoc, updateDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadString,getDownloadURL, deleteObject } from 'firebase/storage'
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -26,6 +26,9 @@ const firebaseStorage = getStorage(app)
 export const authService = getAuth(app);
 export const createUser = createUserWithEmailAndPassword;
 export const signIn = signInWithEmailAndPassword;
+export const fUpdateProfile = updateProfile;
+export const fUpdateCurrentUser = updateCurrentUser;
+
 export const fireStore = getFirestore();
 export const dbService = db;
 export const fAddDoc = addDoc;

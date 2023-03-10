@@ -45,11 +45,11 @@ export default function Auth() {
     // console.log(e.target.name);
     let provider;
 
-    if(e.target.name == "google"){
+    if(e.target.name === "google"){
       
       // when google login btn is clicked
       provider = await new GoogleAuthProvider();
-    } else if (e.target.name == "github") {
+    } else if (e.target.name === "github") {
       // when github login btn is clicked
       provider = await new GithubAuthProvider();
     }
