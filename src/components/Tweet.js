@@ -57,7 +57,10 @@ export default function Tweet({tweetObj, isOwner}) {
                     <button onClick={onToggleSetting}>Cancel</button>
                 </form>) :(
                 <>
-                    <h4>{tweetObj.data.text}</h4>    
+                    <h4>{tweetObj.data.text}</h4>  
+                    {
+                        tweetObj.data.imgURL && <img src={tweetObj.data.imgURL} width="50px" height="50px"/>  
+                    }
                     {
                         isOwner && <>
                             <button onClick={onClickDeleteData}>Delete Tweet</button>

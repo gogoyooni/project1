@@ -5,7 +5,7 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {getFirestore, collection, doc, addDoc, getDocs, getDoc, onSnapshot, query,where, orderBy, deleteDoc, updateDoc} from 'firebase/firestore';
-
+import { getStorage, ref, uploadString,getDownloadURL, uploadBytesResumable } from 'firebase/storage'
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -20,6 +20,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // Initialize Firestore
 const db = getFirestore(app);
+
+const firebaseStorage = getStorage(app)
 
 export const authService = getAuth(app);
 export const createUser = createUserWithEmailAndPassword;
@@ -36,3 +38,9 @@ export const fWhere = where;
 export const fOrderBy = orderBy
 export const fDeleteDoc = deleteDoc;
 export const fEditDoc = updateDoc;
+
+// Firebase storage
+export const fStorage = firebaseStorage;
+export const fRef = ref;
+export const fUploadString = uploadString;
+export const fGetDownloadURL = getDownloadURL;
